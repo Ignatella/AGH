@@ -5,7 +5,40 @@ namespace lesson_5
 {
     public static class PascalTriangle
     {
-        public static void PascalTriangleQueue(int stringNum) //better solution
+        #region final
+
+        public static void PascalTriangleFinal(int rowNumbers)
+        {
+            int[] row = new int[rowNumbers];
+            row[0] = 1;
+
+            WriteEverything(row, 1);
+
+            for (int i = 1; i < rowNumbers; i++)
+            {
+                row[i] = 1;
+
+                for (int k = i - 1; k > 0; k--)
+                {
+                    row[k] = row[k - 1] + row[k];
+                }
+
+                WriteEverything(row, i + 1);
+            }
+        }
+
+        public static void WriteEverything(int[] tablica, int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(tablica[i] + " ");
+            }
+            Console.WriteLine();
+        }
+
+        #endregion
+
+        public static void PascalTriangleQueue(int stringNum)
         {
             Queue<int> row = new Queue<int>(new[] { 1 });
 
