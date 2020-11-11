@@ -1,0 +1,265 @@
+====== Ex 1 ====== {
+
+    Problem situation: {
+        Proszę zdefiniować Maszynę Turinga, która realizuje odejmowanie w systemie unarnym.
+        Na tasmie zapisane są dwie liczby rozdzielone znakiem #, liczba pierwsza jest zawsze
+        większa od liczby drugiej. 
+    }
+
+    Solution: {
+        Name: Unary subtraction
+        Alphabet: {1, #}
+        Initial position: {sign # after last 1} e.g.: [ #1111111#111*# ]. * warns the required character
+        States: {
+            start - initial state
+            rep2_ - replace first 1 with #. If no 1 found (# found) -> halt
+            movL_ - move left while first # is not found
+            in1__ - we are in the left hand side unary number
+            rep1_ - replace first 1 in left hand side unary number with #
+            movR_ - move right while first # is not found
+            in2__ - we are in the right hand side unary number
+            halt_ - final state
+        }
+        live example: http://morphett.info/turing/turing.html?e2a57e9bd868b3598045d15fa3b84b10      |      https://goo.su/2YIV
+
+
+        (start # # l rep2_)
+        (rep2_ 1 # l movL_)
+        (rep2_ # # l halt_)
+        (movL_ 1 1 l movL_)
+        (movL_ # # l in1__)
+        (in1__ 1 1 l in1__)
+        (in1__ # # r rep1_)
+        (rep1_ 1 # r movR_)
+        (movR_ 1 1 r movR_)
+        (movR_ # # r in2__)
+        (in2__ 1 1 r in2__)
+        (in2__ # # l rep2_)
+    }
+}
+
+
+====== Ex 2 ====== {
+
+    Problem situation: {
+        Proszę przeanalizować Maszynę Turinga wiedząc, z#e alfabetem wejsciowym są
+        symbole {0, 1}, natomiast znak pusty to “#”. q0 jest stanem początkowym, q3 - koncowym.
+        Co jest wynikiem działania tej maszyny?
+    }
+
+    Solution: {
+        Description: The algorithm adds 1 to the binary number
+
+
+        (0; q0; 1; q2; L)
+        (1; q0; 0; q1; L)
+        (#; q0; #; q0; L)
+        (0; q1; 1; q2; L) <--- (0; q1; 1; q3; L)
+        (1; q1; 0; q1; L)
+        (#; q1; 1; q3; L)
+        (0; q2; 0; q2; L) <--- excess
+        (1; q2; 1; q2; L) <--- excess
+        (#; q2; #; q3; L) <--- excess
+    }
+}
+
+
+====== Ex 3 ====== {
+
+    Problem situation: {
+        Proszę zdefiniować Maszynę Turinga, która zamieni liczbę binarną zapisaną w systemie
+        U2 na przeciwną.
+    }
+
+    Solution: {
+        Name: Not 2C 
+        Alphabet: {0, 1, #}
+        Initial position: {sign # after last number} e.g.: [ #1000011100*# ]. * warns the required character
+        States: {
+            start - initial state,
+            sear1 - looking for first 1 to start replacing
+            repl_ - change to the opposite nubmer
+            halt_ - final state
+        }
+        live example: http://morphett.info/turing/turing.html?e910d2923a8c4c19b0167288b9ba2ee5
+
+
+        (start # # l sear1)
+        (sear1 0 0 l sear1)
+        (sear1 1 1 l repl_)
+        (repl_ 1 0 l repl_)
+        (repl_ 0 1 l repl_)
+        (repl_ # # l halt_)
+    }
+}
+
+
+====== Ex 4 ====== {
+
+    Problem situation: {
+        Proszę zdefiniować Maszynę Turinga, która do danej na tasmie liczby binarnej dopisze
+        na początku 0 lub 1 tak, by nowa liczba miała parzystą liczbę jedynek.
+        Załóżmy, że głowica maszyny początkowo wskazuje na najmłodszy bit.
+    }
+
+    Solution: {
+        Alphabet: {0, 1, #}
+        Initial position: {sign # after last number} e.g.: [ ##1000011100*# ]. * warns the required character
+        States: {
+            start - initial state
+            even_ - we have even count of 1 at the moment
+            nEven - we have not even count of 1 at the moment
+            halt_ - final state
+        }
+        live example: http://morphett.info/turing/turing.html?e39bc93f742c1f2b3da30bd6cb0d56bf
+
+
+        (start # # l even_)
+        (even_ 0 0 l even_)
+        (even_ 1 1 l nEven)
+        (even_ # 0 l halt_)
+        (nEven 1 1 l even_)
+        (nEven 0 0 l nEven)
+        (nEven # 1 l halt_)
+    }
+}
+
+
+====== Ex 5 ====== {
+
+    Problem situation: {
+        Proszę zdefiniować Maszynę Turinga, która dla podanego na tasmie ciągu znaków
+        nalez#ących do zbioru {a, b} zamieni miejscami pierwszy symbol z ostatnim. Niech
+        znakiem pustym będzie “#”.
+    }
+
+    Solution: {
+        Alphabet: {a, b, #}
+        Initial position: {first {a, b} sign} e.g.: [ *#aaaab# ]. * warns the required character
+        live example: http://morphett.info/turing/turing.html?c0ee485cee4d21a4d4ebd941fb8792d8
+
+
+        (start # # r takeF)
+
+        (takeF a a r movRA)
+        (takeF b b r movRB)
+
+        (movRA a a r movRA)
+        (movRA b b r movRA)
+        (movRA # # l replA)
+
+        (movRB a a r movRB)
+        (movRB b b r movRB)
+        (movRB # # l replB)
+
+
+        (replA a a l movLA)
+        (replA b a l movLB)
+
+        (replB a b l movLA)
+        (replB b b l movLB)
+
+        (movLA a a l movLA)
+        (movLA b b l movLA)
+        (movLA # # r reprA)
+
+        (movLB a a l movLB)
+        (movLB b b l movLB)
+        (movLB # # r reprB)
+
+        (reprA a a l halt_)
+        (reprA b a l halt_)
+
+        (reprB a b l halt_)
+        (reprB b b l halt_)
+    }
+}
+
+
+====== Ex 6 ====== {
+
+    Problem situation: {
+        Proszę zdefiniować Maszynę Turinga, która dla podanego na tasmie ciągu znaków
+        nalez#ących do zbioru {a, b} wygeneruje napis, w którym kaz#dy znak a zostanie
+        zastąpiony dwoma znakami a. 
+    }
+
+    Solution: {
+        Alphabet: {a, b, #}
+        Initial position: {first {a, b} sign} e.g.: [ *#aaaab# ]. * warns the required character
+        live example: http://morphett.info/turing/turing.html?a233a4c5736836cbb14b4bfa937ffb02
+
+
+        (start # # r pick_)
+
+        (pick_ a # r mRA1_)
+        (pick_ b # r mRB1_)
+        (pick_ # # r halt_)
+
+        (mRA1_ a a r mRA1_)
+        (mRA1_ b b r mRA1_)
+        (mRA1_ # # r mRA2_)
+
+        (mRB1_ a a r mRB1_)
+        (mRB1_ b b r mRB1_)
+        (mRB1_ # # r mRB2_)
+
+        (mRA2_ a a r mRA2_)
+        (mRA2_ b b r mRA2_)
+        (mRA2_ # a r mRA22)
+        (mRA22 # a l mL2__)
+
+        (mRB2_ a a r mRB2_)
+        (mRB2_ b b r mRB2_)
+        (mRB2_ # b l mL2__)
+
+        (mL2__ a a l mL2__)
+        (mL2__ b b l mL2__)
+        (mL2__ # # l mL1__)
+
+        (mL1__ a a l mL1__)
+        (mL1__ b b l mL1__)
+        (mL1__ # # r pick_)
+    }
+}
+
+
+====== Ex 7 ====== {
+
+    Problem situation: {
+        Proszę zdefiniować Maszynę Turinga, która odpowie na pytanie, czy zapisany na taśmie
+        ciąg znaków (alfabet to zbiór {a, b}) jest palindromem.
+    }
+
+    Solution: {
+        Alphabet: {a, b, #}
+        Initial position: {first {a, b} sign} e.g.: [ *#aaaab# ]. * warns the required character
+        live example: http://morphett.info/turing/turing.html?061e5d25aa5b149da111269889764b66
+
+
+        (start # # r pick_)
+
+        (pick_ a # r movRA)
+        (pick_ b # r movRB)
+        (pick_ # # r haltS)
+
+        (movRA a a r movRA)
+        (movRA b b r movRA)
+        (movRA # # l checA)
+
+        (movRB a a r movRB)
+        (movRB b b r movRB)
+        (movRB # # l checB)
+
+        (checA a # l movL_)
+        (checA b b l haltF)
+
+        (checB a a l haltF)
+        (checB b # l movL_)
+        (checB # # l haltS)
+
+        (movL_ a a l movL_)
+        (movL_ b b l movL_)
+        (movL_ # # r pick_)
+    }
+}
