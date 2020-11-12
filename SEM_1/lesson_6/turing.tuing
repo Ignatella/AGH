@@ -51,7 +51,7 @@
         Description: The algorithm adds 1 to the binary number
 
 
-        (0; q0; 1; q2; L)
+        (0; q0; 1; q2; L) <--- (0; q0; 1; q3; L)
         (1; q0; 0; q1; L)
         (#; q0; #; q0; L)
         (0; q1; 1; q2; L) <--- (0; q1; 1; q3; L)
