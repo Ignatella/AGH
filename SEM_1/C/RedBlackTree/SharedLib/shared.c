@@ -22,23 +22,12 @@ void rotate(struct Node *new, enum Side direction) {
         parent->right_child = new->left_child;
 
         new->left_child = parent;
-
-        if (parent->color == Red)
-            rotate(new, Right);
     }
 
     if (direction == Right) {
         parent->left_child = new->right_child;
 
         new->right_child = parent;
-
-        if (parent->color == Red)
-            rotate(new, Left);
-    }
-
-    if (parent->color == Black) {
-        parent->color = Red;
-        new->color = Black;
     }
 }
 

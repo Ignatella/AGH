@@ -26,11 +26,18 @@ void balance_tree(struct Node *new) {
 
     if (parent_position == Left) {
         if (uncle == NULL || uncle->color == Black) {
-            if (new_position == Left) {
-                rotate(parent, Right);
-                return;
-            } else {
+            if (new_position == Right) {
                 rotate(new, Left);
+                rotate(new, Right);
+                new->color = Black;
+                grand->color = Red;
+                return;
+            }
+
+            if (new_position == Left){
+                rotate(parent, Right);
+                parent->color = Black;
+                grand->color = Red;
                 return;
             }
         } else {
@@ -41,11 +48,19 @@ void balance_tree(struct Node *new) {
 
     if (parent_position == Right) {
         if (uncle == NULL || uncle->color == Black) {
-            if (new_position == Right) {
-                rotate(parent, Left);
-                return;
-            } else {
+            if (new_position == Left) {
                 rotate(new, Right);
+                rotate(new, Left);
+                new->color = Black;
+                grand->color = Red;
+                return;
+            }
+
+            if (new_position == Right){
+                rotate(parent, Left);
+                parent->color = Black;
+                grand->color = Red;
+                return;
             }
         } else {
             balance_most_lr_red_uncle(new);
