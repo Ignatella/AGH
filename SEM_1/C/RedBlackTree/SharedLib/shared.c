@@ -20,18 +20,21 @@ void rotate(struct Node *new, enum Side direction) {
 
     if (direction == Left) {
         parent->right_child = new->left_child;
-
+        if(parent->right_child != NULL)
+            parent->right_child->parent= parent;
         new->left_child = parent;
     }
 
     if (direction == Right) {
         parent->left_child = new->right_child;
-
+        if(parent->left_child != NULL)
+            parent->left_child->parent= parent;
         new->right_child = parent;
     }
 }
 
 void update_root(struct Node *new) {
+    new->parent = NULL;
     root = new;
     root->color = Black;
 }
