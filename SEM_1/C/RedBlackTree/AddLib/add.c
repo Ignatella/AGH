@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "add.h"
-#include "../SharedLib/shared.h"
+#include "HelpersLib/addHelpers.h"
 
 
 void balance_tree(struct Node *new) {
@@ -16,8 +16,8 @@ void balance_tree(struct Node *new) {
 
     grand = parent->parent;
 
-    new_position = find_side(new, parent);
-    parent_position = find_side(parent, grand);
+    new_position = find_side_by_val(new, parent);
+    parent_position = find_side_by_val(parent, grand);
 
     if (parent_position == Left) //determine where uncle is
         uncle = grand->right_child;

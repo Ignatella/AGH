@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "helpers.h"
-#include "../AddLib/add.h"
+#include <stdlib.h>
+#include "addHelpers.h"
+#include "../add.h"
 
 
 void add_val(int val) {
@@ -12,7 +13,7 @@ void add_val(int val) {
     return balance_tree(created);
 }
 
-enum Side find_side(struct Node *child, struct Node *parent) {
+enum Side find_side_by_val(struct Node *child, struct Node *parent) {
     if (child->value > parent->value)
         return Right;
 
@@ -48,7 +49,7 @@ struct Node *create_node(int val) {
 void insert_node(struct Node *new, struct Node *parent) {
     if (parent == NULL) return;
 
-    enum Side side_for_insertion = find_side(new, parent);
+    enum Side side_for_insertion = find_side_by_val(new, parent);
 
     if (side_for_insertion == Left)
         parent->left_child = new;
