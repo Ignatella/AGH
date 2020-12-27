@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.17)
+project(find_longest_cor_nums_multiplication C)
+
+set(CMAKE_C_STANDARD 99)
+
+add_executable(find_longest_cor_nums_multiplication main.c)
+target_link_libraries(find_longest_cor_nums_multiplication m)
