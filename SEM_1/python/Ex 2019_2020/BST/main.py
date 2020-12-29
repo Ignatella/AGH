@@ -171,11 +171,287 @@ class BST:
             return left_nodes + right_nodes
 
         return [node]
+
+    # endregion
+
+    # region Iteratively
+
+    def i_count(self):
+        curr = self.root
+        result = 0
+        actions = []
+        mode = "Count"
+        while True:
+            while mode == "Count":
+                if curr is None or (curr.left_child is None and curr.right_child is None):
+                    if curr is not None:
+                        result += 1
+                    mode = "Wander"
+                    continue
+                if curr.left_child is not None:
+                    result += 1
+                    actions.append("Left")
+                    curr = curr.left_child
+                if curr.left_child is None and curr.right_child is not None:
+                    result += 1
+                    actions.append("Right")
+                    curr = curr.right_child
+
+            while mode == "Wander":
+                for i in reversed(range(len(actions))):
+                    if actions[i] == "Left":
+                        actions[i] = "Right"
+                        break
+                    else:
+                        actions.pop()
+
+                if len(actions) == 0:
+                    return result
+
+                curr = self.root
+                for i in range(len(actions)):
+                    if actions[i] == "Left":
+                        curr = curr.left_child
+                    if actions[i] == "Right":
+                        curr = curr.right_child
+
+                mode = "Count"
+
+    def i_get_height(self):
+        curr = self.root
+        result = 0
+        actions = []
+        mode = "Count"
+        tmp_height = 0
+        while True:
+            while mode == "Count":
+                if curr is None or (curr.left_child is None and curr.right_child is None):
+                    mode = "Wander"
+                    continue
+                if curr.left_child is not None:
+                    tmp_height += 1
+                    actions.append("Left")
+                    curr = curr.left_child
+                if curr.left_child is None and curr.right_child is not None:
+                    tmp_height += 1
+                    actions.append("Right")
+                    curr = curr.right_child
+
+            while mode == "Wander":
+                if tmp_height > result:
+                    result = tmp_height
+
+                for i in reversed(range(len(actions))):
+                    if actions[i] == "Left":
+                        actions[i] = "Right"
+                        break
+                    else:
+                        tmp_height -= 1
+                        actions.pop()
+
+                if len(actions) == 0:
+                    return result + 1
+
+                curr = self.root
+                for i in range(len(actions)):
+                    if actions[i] == "Left":
+                        curr = curr.left_child
+                    if actions[i] == "Right":
+                        curr = curr.right_child
+
+                mode = "Count"
+
+    def i_get_leaf_count(self):
+        curr = self.root
+        result = 0
+        actions = []
+        mode = "Count"
+        while True:
+            while mode == "Count":
+                if curr is None or (curr.left_child is None and curr.right_child is None):
+                    if curr is not None:
+                        result += 2
+                    if curr is None:
+                        result += 1
+                    mode = "Wander"
+                    continue
+                if curr.left_child is not None:
+                    actions.append("Left")
+                    curr = curr.left_child
+                if curr.left_child is None and curr.right_child is not None:
+                    result += 1
+                    actions.append("Right")
+                    curr = curr.right_child
+
+            while mode == "Wander":
+                for i in reversed(range(len(actions))):
+                    if actions[i] == "Left":
+                        actions[i] = "Right"
+                        break
+                    else:
+                        actions.pop()
+
+                if len(actions) == 0:
+                    return result
+
+                curr = self.root
+                for i in range(len(actions)):
+                    if actions[i] == "Left":
+                        curr = curr.left_child
+                    if actions[i] == "Right":
+                        curr = curr.right_child
+
+                mode = "Count"
+
+    def i_get_node_count(self, layer_n):
+        layer = self.__i_get_layer(layer_n)
+        res = [x for x in layer if x is not None]
+        return len(res)
+
+    def i_is_presented(self, value):
+        curr = self.root
+        while True:
+            if curr is None:
+                return False
+            if value > curr.value:
+                curr = curr.right_child
+                continue
+            if value < curr.value:
+                curr = curr.left_child
+                continue
+            if value == curr.value:
+                return True
+
+    def i_destroy_tree(self, from_node, should_root_be_destroyed=True):
+        curr = from_node
+        mode = "Count"
+        while from_node is not None and (from_node.left_child is not None or from_node.right_child is not None):
+            if curr.left_child is not None:
+                if curr.left_child.left_child is None and curr.left_child.right_child is None:
+                    del curr.left_child
+                    curr.left_child = None
+                    continue
+                curr = curr.left_child
+                continue
+
+            if curr.left_child is None and curr.right_child is not None:
+                if curr.right_child.left_child is None and curr.right_child.right_child is None:
+                    del curr.right_child
+                    curr.right_child = None
+                    continue
+                curr = curr.right_child
+                continue
+
+            curr = from_node
+
+        if should_root_be_destroyed:
+            self.root = None
+
+    def i_destroy_excess_nodes(self, layer_n):
+        curr = self.root
+        actions = []
+        mode = "Count"
+        while True:
+            while mode == "Count":
+                if curr is None or (curr.left_child is None and curr.right_child is None):
+                    if layer_n == len(actions):
+                        self.i_destroy_tree(curr, False)
+                    mode = "Wander"
+                    continue
+                if curr.left_child is not None:
+                    if layer_n == len(actions):
+                        self.i_destroy_tree(curr, False)
+                        mode = "Wander"
+                        continue
+                    actions.append("Left")
+                    curr = curr.left_child
+                if curr.left_child is None and curr.right_child is not None:
+                    if layer_n == len(actions):
+                        self.i_destroy_tree(curr, False)
+                        mode = "Wander"
+                        continue
+                    actions.append("Right")
+                    curr = curr.right_child
+
+            while mode == "Wander":
+                for i in reversed(range(len(actions))):
+                    if actions[i] == "Left":
+                        actions[i] = "Right"
+                        break
+                    else:
+                        actions.pop()
+
+                if len(actions) == 0:
+                    return
+
+                curr = self.root
+                for i in range(len(actions)):
+                    if actions[i] == "Left":
+                        curr = curr.left_child
+                    if actions[i] == "Right":
+                        curr = curr.right_child
+
+                mode = "Count"
+
+    def __i_get_layer(self, layer_n):
+        curr = self.root
+        result = []
+        actions = []
+        mode = "Count"
+        while True:
+            while mode == "Count":
+                if curr is None or (curr.left_child is None and curr.right_child is None):
+                    if layer_n == len(actions):
+                        result += [curr]
+                    else:
+                        result += [None] * int(2 ** (layer_n - len(actions)))
+
+                    mode = "Wander"
+                    continue
+                if curr.left_child is not None:
+                    if layer_n == len(actions):
+                        result += [curr]
+                        mode = "Wander"
+                        continue
+
+                    actions.append("Left")
+                    curr = curr.left_child
+                if curr.left_child is None and curr.right_child is not None:
+                    if layer_n == len(actions):
+                        result += [curr]
+                        mode = "Wander"
+                        continue
+                    else:
+                        result += [None] * int(2 ** (layer_n - len(actions) - 1))
+
+                    actions.append("Right")
+                    curr = curr.right_child
+
+            while mode == "Wander":
+                for i in reversed(range(len(actions))):
+                    if actions[i] == "Left":
+                        actions[i] = "Right"
+                        break
+                    else:
+                        actions.pop()
+
+                if len(actions) == 0:
+                    return result
+
+                curr = self.root
+                for i in range(len(actions)):
+                    if actions[i] == "Left":
+                        curr = curr.left_child
+                    if actions[i] == "Right":
+                        curr = curr.right_child
+
+                mode = "Count"
     # endregion
 
 
 if __name__ == '__main__':
     tree = BST(10)
+
     tree.insert(52)
     tree.insert(20)
 
@@ -185,43 +461,10 @@ if __name__ == '__main__':
     tree.insert(5)
     tree.insert(3)
     tree.insert(19)
+    tree.insert(26)
+    tree.insert(3)
+    tree.insert(2)
+    tree.insert(25)
 
     tree.print_tree()
-    tree.destroy_excess_nodes(1, tree.root)
-    tree.print_tree()
-
     print("HELLO")
-
-"""
-
-     ____54____            
-    /          \ 
-   13          33      
-  /  \        /  \
-10    20    40    50
-  
-  
-  
-           __________54_________              h = 1  l = 0  k = 1  (4 - 0 - 3)
-          /                     \  
-     ____53____              ____90____       h = 2  l = 1  k = 0  (4 - 1 - 3)
-    /          \            /          \     
-   13          33          70          95     h = 3  l = 2  k < 0   
-  /  \        /  \        /  \        /  \  
-10    20    40    50    69    71    83    99  h = 4  l = 3  k < 0  
-
-Итого: a(k) = 2^k*6-2 - the number of _ preceding the number (given that the number occupies 2 positions)
-       a(n) = 6 * 2^(total_h - layer_n - 3) - 2
-
-
-                       ______________________50______________________
-                      /                                              \ 
-           __________25__________                          __________75__________   
-          /                      \                        /                      \ 
-     ____15____              ____40____              ____65____              ____90____    
-    /          \            /          \            /          \            /          \  
-   10          17          35          45          55          70          80          95
-  /  \        /  \        /  \        /  \        /  \        /  \        /  \        /  \ 
-09    11    16    18    34    36    44    46    54    56    69    71    79    81    94    99  
-       
-"""
