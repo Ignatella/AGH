@@ -8,4 +8,4 @@ add_executable(RedBlackTree main.c
         AddLib/add.h AddLib/add.c
         AddLib/HelpersLib/addHelpers.h AddLib/HelpersLib/addHelpers.c
         DeleteLib/delete.h DeleteLib/delete.c
-        DeleteLib/HelpersLib/deleteHelpers.h DeleteLib/HelpersLib/deleteHelpers.c)
+        DeleteLib/HelpersLib/deleteHelpers.h DeleteLib/HelpersLib/deleteHelpers.c HelpersLib/helpers.h HelpersLib/helpers.c)
