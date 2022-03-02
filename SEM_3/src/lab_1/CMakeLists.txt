@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.13)
+project("lab_1" LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+file(GLOB sources "src/*.cpp" "include/*.h" "include/*.hpp")
+add_executable(${PROJECT_NAME} ${sources})
