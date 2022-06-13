@@ -1,8 +1,7 @@
 ## Single Responsibility Principle
 
 ```text
-Every class or method in your program should have only a single rea‐
-son to change.
+Every class or method in your program should have only a single reason to change.
 ```
 
 ### Implementation notes:
