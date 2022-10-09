@@ -1,0 +1,27 @@
+Metoda SOR
+
+w = 0.3
+
+Iteration i = 0.   x: (0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   )
+Possible exit due to e: 0.1, iteration: 5
+Iteration i = 10.   x: (-23.68658   29.37051   33.54479   1.08423   -89.79037   -41.56560   -20.51977   -76.47824   18.51937   74.68452   )
+Possible exit due to e: 0.01, iteration: 12
+Possible exit due to e: 0.001, iteration: 19
+Iteration i = 20.   x: (-23.04912   30.93476   34.94241   0.06968   -91.95053   -42.95248   -23.86165   -78.91693   18.98714   75.99548   )
+Possible exit due to e: 0.0001, iteration: 25
+More presicion is not nedeed. Exit.
+
+
+Solution:
+-23.01
+30.99
+34.99
+0.01472
+-91.99
+-42.99
+-23.98
+-78.99
+19
+76
+
+

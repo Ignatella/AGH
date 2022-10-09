@@ -1,0 +1,22 @@
+Metoda Gaussa–Seidela
+Iteration i = 0.   x: (0.000   0.000   0.000   0.000   0.000   0.000   0.000   0.000   0.000   0.000   )
+Possible exit due to e: 0.1, iteration: 3
+Possible exit due to e: 0.01, iteration: 5
+Possible exit due to e: 0.001, iteration: 6
+Possible exit due to e: 0.0001, iteration: 7
+More presicion is not nedeed. Exit.
+
+
+Solution:
+-23
+31
+35
+-0.001093
+-92
+-43
+-24
+-79
+19
+76
+
+

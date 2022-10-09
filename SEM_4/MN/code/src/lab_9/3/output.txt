@@ -1,0 +1,40 @@
+Zadanie 1a:
+Punkt startowy (0.500, 5.000) 
+x = (0.677, 0.465) 
+f(x) = (0.000, 0.000) 
+
+
+Zadanie 1b:
+Punkt startowy (0.500, 5.000) 
+x = (0.748, 0.889) 
+f(x) = (0.000, 0.000) 
+
+
+Zadanie 2a:
+Punkt startowy (0.500, 5.000) 
+x = (0.303, 0.499) 
+f(x) = (0.000, 0.000) 
+
+
+Zadanie 2b:
+Punkt startowy (0.500, 5.000) 
+x = (0.039, 0.239) 
+f(x) = (0.000, 0.000) 
+
+
+Zadanie 3a:
+Punkt startowy (0.500, 5.000) 
+x = (0.570, 1.204) 
+f(x) = (0.000, -0.000) 
+
+
+Zadanie 3b:
+Punkt startowy (0.500, 5.000) 
+x = (0.164, 1.395) 
+f(x) = (-0.000, 0.000) 
+
+
+Zadanie 3c:
+Punkt startowy (0.000, 1.100, 4.000) 
+x = (0.001, 1.312, 3.499) 
+f(x) = (0.000, -0.000, 0.000) 

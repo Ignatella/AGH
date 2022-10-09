@@ -1,0 +1,109 @@
+/* 
+Proszę napisac taki kod, ktory pozwoli reprezentowac zmienne roznych typow. 
+Kazda zmienna przechowuje nazwe i wartosc. 
+Istnieje mozliwosc przechowywania wszystkich zmiennych w jednej tablicy.
+Dodatkowo prosze zaimplementowac klasę szablonowa reprezentujaca zmienna z jednostkami.
+
+UWAGA!
+Funkcja ArrayOfVariables::CreateAndAdd moze byc zaimplementowana tylko JEDEN raz i nie wolno w niej używać żadnych instrukcji warunkowych np. if, for, while.
+
+Po uruchomieniu kodu znajdujacego sie w blokach ifdef ERROR_1 i ERROR_2 w kazdej z linii uruchomionego bloku powinien pojawic sie blad kompilacji. Jezeli blad sie nie pojawi oznacza to niepoprawne wykonanie zadania.
+*/
+
+#include"main.h"
+#include<iostream>
+
+//#define ERROR_0
+//#define ERROR_1
+//#define ERROR_2
+
+int main ()
+{
+  const unsigned int maxArraySize = 10;
+  ArrayOfVariables array (maxArraySize);
+
+  std::cout<<"***** ZMIENNE *****\n";
+  Variable<double>* time = NULL;
+  time = array.CreateAndAdd ("czas", 13.);
+  time->Print();
+  
+  Variable<float>* distance = NULL;
+  distance = array.CreateAndAdd ("dystans", 15.f);
+  distance->Print();
+  
+  Variable<int>* numberOfEvents = array.CreateAndAdd ("zdarzenia", 176);
+  Variable<char>* hexDigit = array.CreateAndAdd ("heksadecymalnie", 'F');
+  Variable<bool>* isGood = array.CreateAndAdd ("dobrze", true);
+
+#ifdef ERROR_0
+  VariableInt* numberOfEvents2 = array.CreateAndAdd ("wydarzenia", 176.);
+#endif
+
+#ifdef ERROR_1
+  time = distance;
+  time = numberOfEvents;
+  time = isGood;
+  time = hexDigit;
+  distance = numberOfEvents;
+  distance = isGood;
+  numberOfEvents = isGood;
+#endif
+  
+  std::cout<<"***** TABLICA *****\n";
+  array.Print();
+  std::cout<<std::endl;
+
+  std::cout<<"***** ZMODYFIKOWANE ZMIENNE *****\n";
+  time->SetValue(10.5);
+  distance->SetValue(0.5);
+  numberOfEvents->SetValue (42);
+  hexDigit->SetValue('9');
+  isGood->SetValue(true);
+
+  array.Print();
+  std::cout<<std::endl;
+  
+  std::cout<<"***** Z JEDNOSTKAMI *****\n";
+  VariableWithUnits<double> speed ("predkosc", 333., "m/s");
+  speed.Print();
+  Variable<double>& speedRef = speed;
+  speedRef.Print();
+
+  VariableWithUnits<int> numberOfAtoms ("liczba atomow", 436, "atomow");
+  numberOfAtoms.Print();
+  Variable<int>& numberOfAtomsRef = numberOfAtoms;
+  numberOfAtomsRef.Print();
+
+#ifdef ERROR_2
+  VariableWithUnits<double>& speedRef2 = speedRef;
+  VariableWithUnits<int>& numberRef = numberOfAtomsRef;
+#endif
+  
+  return 0;
+}
+
+/* oczekiwany output
+
+***** ZMIENNE *****
+czas: 13
+dystans: 15
+***** TABLICA *****
+czas: 13
+dystans: 15
+zdarzenia: 176
+heksadecymalnie: F
+dobrze: 1
+
+***** ZMODYFIKOWANE ZMIENNE *****
+czas: 10.5
+dystans: 0.5
+zdarzenia: 42
+heksadecymalnie: 9
+dobrze: 1
+
+***** Z JEDNOSTKAMI *****
+predkosc: 333 [m/s]
+predkosc: 333 [m/s]
+liczba atomow: 436 [atomow]
+liczba atomow: 436 [atomow]
+*/

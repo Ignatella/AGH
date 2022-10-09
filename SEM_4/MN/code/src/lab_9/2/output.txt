@@ -1,0 +1,9 @@
+Zadanie 2a:
+Took 6 iterations
+x = (0.303, 0.499) 
+f(x) = (0.303, 0.499) 
+
+Zadanie 2b:
+Took 1245 iterations
+x = (0.039, 0.239) 
+f(x) = (0.039, 0.239) 

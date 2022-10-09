@@ -1,0 +1,5 @@
+Zadanie 1a [Bisekcja], x = 0.677, y = 0.465, iterations = 30
+Zadanie 1a [Newton],   x = 0.677, y = 0.465, iterations = 21
+
+Zadanie 1b [Bisekcja], x = 0.748, y = 0.889, iterations = 30
+Zadanie 1b [Newton],   x = 0.748, y = 0.889, iterations = 5
